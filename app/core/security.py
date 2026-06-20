@@ -14,6 +14,9 @@ def get_current_user(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing bearer token")
 
     try:
+        import logging
+        logging.warning(f"Token received: {credentials.credentials[:20]}...")
+        logging.warning(f"JWT Secret length: {len(settings.SUPABASE_JWT_SECRET)}")
         payload = jwt.decode(
             credentials.credentials,
             settings.SUPABASE_JWT_SECRET,
