@@ -18,7 +18,7 @@ def get_current_user(
             credentials.credentials,
             settings.SUPABASE_JWT_SECRET,
             algorithms=["HS256"],
-            audience="authenticated",
+            options={"verify_aud": False},
         )
     except jwt.PyJWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
